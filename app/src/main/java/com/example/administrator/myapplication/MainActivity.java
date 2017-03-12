@@ -3,6 +3,7 @@ package com.example.administrator.myapplication;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.example.administrator.myapplication.adapter.MListAdapter;
@@ -21,7 +22,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AbsListView.OnScrollListener {
 
     @BindView(R.id.lv)
     ListView mListView;
@@ -48,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
 
+        mMListAdapter = new MListAdapter(mResults,MainActivity.this);
+        mListView.setAdapter(mMListAdapter);
+
+        mListView.setOnScrollListener(this);
     }
 
     /**
@@ -78,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Gson gson = new Gson();
+    private boolean isLoading = true;
 
     /**
      * 异步请求
@@ -87,12 +93,14 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
+                isLoading = false;
                 //创建对象
                 OkHttpClient okHttp = new OkHttpClient();
 
                 //创建请求方法和请求参数
-                String path = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/1";
+                int pakg = mResults.size() / 10 + 1;
+                System.out.println(pakg+"");
+                String path = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/"+pakg;
                 Request request = new Request.Builder().get().url(path).build();
 
                 //异步请求-我执行的时候，并不影响别人
@@ -111,10 +119,9 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 System.out.println("2");
-                                mResults = mBean.getResults();
-//                                mMListAdapter.notifyDataSetChanged();
-                                mMListAdapter = new MListAdapter(mResults,MainActivity.this);
-                                mListView.setAdapter(mMListAdapter);
+                                mResults.addAll(mBean.getResults());
+                                mMListAdapter.notifyDataSetChanged();
+                                isLoading = true;
                             }
                         });
                     }
@@ -123,4 +130,19 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        if(scrollState == SCROLL_STATE_IDLE) {
+            int position = mListView.getLastVisiblePosition();
+            System.out.println(position + "-----" + "-----" + mResults.size() + isLoading);
+            if(position == mResults.size()-1 && isLoading) {
+                sendAsyncRequest();
+            }
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+    }
 }

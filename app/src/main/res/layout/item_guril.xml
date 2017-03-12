@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.administrator.myapplication.MainActivity">
 
@@ -20,7 +20,7 @@
     <ImageView
         android:id="@+id/iv_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="300dp">
 
     </ImageView>
 </LinearLayout>
