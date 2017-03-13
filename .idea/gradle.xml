@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/crossviewgroup" />
             <option value="$PROJECT_DIR$/downbox" />
             <option value="$PROJECT_DIR$/mygroupview" />
             <option value="$PROJECT_DIR$/progresscircle" />
