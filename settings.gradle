@@ -1,1 +1,1 @@
-include ':app', ':downbox', ':studyview', ':progresscircle', ':switch'
+include ':app', ':downbox', ':studyview', ':progresscircle', ':switch', ':mygroupview'
