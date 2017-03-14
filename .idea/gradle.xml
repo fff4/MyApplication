@@ -14,8 +14,10 @@
             <option value="$PROJECT_DIR$/downbox" />
             <option value="$PROJECT_DIR$/mygroupview" />
             <option value="$PROJECT_DIR$/progresscircle" />
+            <option value="$PROJECT_DIR$/scroll" />
             <option value="$PROJECT_DIR$/studyview" />
             <option value="$PROJECT_DIR$/switch" />
+            <option value="$PROJECT_DIR$/viewtouch" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

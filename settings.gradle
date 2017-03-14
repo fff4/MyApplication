@@ -1,1 +1,1 @@
-include ':app', ':downbox', ':studyview', ':progresscircle', ':switch', ':mygroupview', ':crossviewgroup'
+include ':app', ':downbox', ':studyview', ':progresscircle', ':switch', ':mygroupview', ':crossviewgroup', ':viewtouch', ':scroll'
